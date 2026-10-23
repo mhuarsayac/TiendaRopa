@@ -81,5 +81,3 @@ classDiagram
     }
 ```
 
-## Nota para la entrega
-Antes de presentar, revisen que las reglas de descuento sean aceptadas por el docente y que todos los integrantes puedan explicar las decisiones de diseño. Las contraseñas de prueba están en texto plano solo porque es un ejercicio introductorio de consola; no es una práctica adecuada para un sistema real.
