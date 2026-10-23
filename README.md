@@ -1,4 +1,4 @@
-# Nonconformist — Sistema de ventas e inventario en Java
+# Sistema de ventas e inventario en Java
 
 ## Requisitos
 - Java 8 o superior.
