@@ -13,8 +13,8 @@ public class DetalleVenta {
             System.out.println("\nLa cantidad debe ser mayor que cero");
             verificado = false;
         }
-        if (cantidad > producto.getStock()) {
-            System.out.println("\nNo ahy stock suficiente");
+        if (producto!=null && cantidad > producto.getStock()) {
+            System.out.println("\nNo hay stock suficiente");
             verificado = false;
         }
 

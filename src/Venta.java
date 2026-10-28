@@ -18,8 +18,12 @@ public class Venta {
     }
 
     public boolean agregarDetalle(DetalleVenta detalle) {
-        if (detalle == null) return false;
-        if (!detalle.getProducto().disminuirStock(detalle.getCantidad())) return false;
+        if (detalle == null || detalle.getProducto() == null) {
+            return false;
+        }
+        if (!detalle.getProducto().disminuirStock(detalle.getCantidad())) {
+            return false;
+        }
         detalles.add(detalle);
         return true;
     }
@@ -43,6 +47,11 @@ public class Venta {
         System.out.println("  TOTAL: S/ " + calcularTotal() + " | Comisión: S/ " + calcularComision());
     }
 
-    public String getCodigo() { return codigo; }
-    public Vendedor getVendedor() { return vendedor; }
+    public String getCodigo() {
+        return codigo;
+    }
+
+    public Vendedor getVendedor() {
+        return vendedor;
+    }
 }
