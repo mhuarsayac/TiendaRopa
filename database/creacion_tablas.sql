@@ -1,6 +1,21 @@
 CREATE DATABASE IF NOT EXISTS tienda_ropa;
 USE tienda_ropa;
 
+CREATE TABLE cliente
+(
+    id_cliente VARCHAR(4),
+    nombre     VARCHAR(50) NOT NULL,
+    apellido   VARCHAR(50) NOT NULL,
+    dni        VARCHAR(8),
+    telefono   VARCHAR(9),
+
+    CONSTRAINT cli_id_cliente_pk
+        PRIMARY KEY (id_cliente),
+
+    CONSTRAINT cli_dni_uk
+        UNIQUE (dni)
+);
+
 CREATE TABLE empleado
 (
     id_empleado VARCHAR(4),
@@ -31,13 +46,19 @@ CREATE TABLE venta
 (
     id_venta    VARCHAR(4),
     id_empleado VARCHAR(4) NOT NULL,
+    id_cliente  VARCHAR(4) NOT NULL,
+    fecha_venta DATE NOT NULL,
 
     CONSTRAINT ven_id_venta_pk
         PRIMARY KEY (id_venta),
 
     CONSTRAINT ven_id_empleado_fk
         FOREIGN KEY (id_empleado)
-            REFERENCES empleado (id_empleado)
+            REFERENCES empleado (id_empleado),
+
+    CONSTRAINT ven_id_cliente_fk
+        FOREIGN KEY (id_cliente)
+            REFERENCES cliente (id_cliente)
 );
 
 CREATE TABLE detalle_venta
