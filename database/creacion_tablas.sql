@@ -48,6 +48,7 @@ CREATE TABLE venta
     id_empleado VARCHAR(4) NOT NULL,
     id_cliente  VARCHAR(4) NOT NULL,
     fecha_venta DATE NOT NULL,
+    total DECIMAL(10,2) NOT NULL,
 
     CONSTRAINT ven_id_venta_pk
         PRIMARY KEY (id_venta),
@@ -67,6 +68,7 @@ CREATE TABLE detalle_venta
     id_venta         VARCHAR(4),
     id_producto      VARCHAR(4)     NOT NULL,
     cantidad         INT            NOT NULL,
+    precio_unitario  DECIMAL(10,2)  NOT NULL,
     subtotal         DECIMAL(10, 2) NOT NULL,
 
     CONSTRAINT dv_id_detalle_venta_pk
