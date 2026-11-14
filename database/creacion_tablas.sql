@@ -31,15 +31,29 @@ CREATE TABLE empleado
         UNIQUE (usuario)
 );
 
+CREATE TABLE categoria
+(
+    id_categoria VARCHAR(4),
+    nombre       VARCHAR(25) NOT NULL,
+
+    CONSTRAINT cat_id_categoria_pk
+        PRIMARY KEY (id_categoria)
+);
+
 CREATE TABLE producto
 (
     id_producto VARCHAR(4),
     nombre      VARCHAR(30)    NOT NULL,
     precio      DECIMAL(10, 2) NOT NULL,
     stock       INT            NOT NULL,
+    id_categoria VARCHAR(4)    NOT NULL,
 
     CONSTRAINT pro_id_producto_pk
-        PRIMARY KEY (id_producto)
+        PRIMARY KEY (id_producto),
+
+    CONSTRAINT pro_id_categoria_fk
+        FOREIGN KEY (id_categoria)
+            REFERENCES categoria(id_categoria)
 );
 
 CREATE TABLE venta

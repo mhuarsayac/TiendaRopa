@@ -9,16 +9,22 @@ VALUES ('E1', 'Miguel Torres', 'admin', 'admin123', 'Administrador'),
        ('E2', 'Ana Lopez', 'vendedor1', 'vendedor1', 'Vendedor'),
        ('E3', 'Carlos Perez', 'vendedor2', 'vendedor2', 'Vendedor');
 
-INSERT INTO producto (id_producto, nombre, precio, stock)
-VALUES ('P1', 'Polo clasico', 30, 50),
-       ('P2', 'Jean slim', 90, 30),
-       ('P3', 'Casaca denim', 120, 15),
-       ('P4', 'Polera oversize', 70, 25),
-       ('P5', 'Short deportivo', 45, 40);
+INSERT INTO categoria (id_categoria, nombre)
+VALUES ('CAT1', 'Polo'),
+       ('CAT2', 'Pantalon'),
+       ('CAT3', 'Casaca'),
+       ('CAT4', 'Short');
+
+INSERT INTO producto (id_producto, nombre, precio, stock, id_categoria)
+VALUES ('P1', 'Polo clasico', 30, 50, 'CAT1'),
+       ('P2', 'Jean slim', 90, 30, 'CAT2'),
+       ('P3', 'Casaca denim', 120, 15, 'CAT3'),
+       ('P4', 'Polera oversize', 70, 25, 'CAT1'),
+       ('P5', 'Short deportivo', 45, 40, 'CAT4');
 
 INSERT INTO venta (id_venta, id_empleado, id_cliente, fecha_venta, total)
 VALUES ('V1', 'E2', 'C1', '2026-04-11', 150),
-       ('V2', 'E3', 'C2', '2026-08-15', 300),
+       ('V2', 'E3', 'C2', '2026-08-15', 300);
 
 INSERT INTO detalle_venta
     (id_detalle_venta, id_venta, id_producto, cantidad, precio_unitario, subtotal)
