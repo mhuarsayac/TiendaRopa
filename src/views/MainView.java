@@ -1,9 +1,6 @@
 package views;
 
-import controllers.DetalleVentaController;
-import controllers.NivelClienteController;
-import controllers.PersonaController;
-import controllers.VentaController;
+import controllers.*;
 
 import java.util.Scanner;
 
@@ -13,6 +10,7 @@ public class MainView {
     private final DetalleVentaController detalleVentaController = new DetalleVentaController();
     private final PersonaController personaController = new PersonaController();
     private final NivelClienteController nivelClienteController = new NivelClienteController();
+    private final ProductoController productoController = new ProductoController();
 
     public void ejecutar() {
         System.out.println("==================================");
@@ -74,8 +72,10 @@ public class MainView {
 
             switch (opcion) {
                 case 1:
+                    productoController.mostrarTodos();
                     break;
                 case 2:
+                    buscarProducto();
                     break;
                 case 3:
                     registrarVenta();
@@ -99,8 +99,8 @@ public class MainView {
         System.out.println("\n===== MENÚ ADMINISTRADOR =====");
         System.out.println("1. Listar personas");
         System.out.println("2. Registrar persona");
-        System.out.println("3. Registrar producto");
-        System.out.println("4. Listar productos");
+        System.out.println("3. Listar productos");
+        System.out.println("4. Registrar producto");
         System.out.println("5. Buscar producto");
         System.out.println("6. Modificar producto");
         System.out.println("7. Eliminar producto");
@@ -128,10 +128,13 @@ public class MainView {
                     registrarPersona();
                     break;
                 case 3:
+                    productoController.mostrarTodos();
                     break;
                 case 4:
+                    registrarProducto();
                     break;
                 case 5:
+                    buscarProducto();
                     break;
                 case 6:
                     break;
@@ -199,6 +202,26 @@ public class MainView {
         );
     }
 
+    private void registrarProducto() {
+        System.out.print("\nID Producto: ");
+        int idProducto = Integer.parseInt(scanner.nextLine());
+        System.out.print("Codigo: ");
+        String codigo = scanner.nextLine();
+        System.out.print("Nombre: ");
+        String nombre = scanner.nextLine();
+        System.out.print("Descripcion: ");
+        String descripcion = scanner.nextLine();
+        System.out.print("Precio: ");
+        double precio = Double.parseDouble(scanner.nextLine());
+        System.out.print("ID Genero: ");
+        int idGenero = Integer.parseInt(scanner.nextLine());
+        System.out.print("\nID Categoria: ");
+        int idCategoria = Integer.parseInt(scanner.nextLine());
+        System.out.print("Activo: ");
+        String activo = scanner.nextLine();
+        productoController.registrar(idProducto, codigo, nombre, descripcion, precio, idGenero, idCategoria, activo);
+    }
+
     private void registrarVenta() {
         System.out.print("\nidVenta: ");
         int idVenta = Integer.parseInt(scanner.nextLine());
@@ -210,9 +233,9 @@ public class MainView {
         String fechaHora = scanner.nextLine();
         System.out.print("Total: ");
         double total = Double.parseDouble(scanner.nextLine());
-        System.out.print("Estado: ");
-        String estado = scanner.nextLine();
-        ventaController.registrar(idVenta, idEmpleado, idCliente, fechaHora, total, estado);
+        System.out.print("Activo: ");
+        String activo = scanner.nextLine();
+        ventaController.registrar(idVenta, idEmpleado, idCliente, fechaHora, total, activo);
     }
 
     private void registrarDetalleVenta() {
@@ -239,5 +262,11 @@ public class MainView {
         System.out.print("Monto minimo: ");
         double montoMinimo = Double.parseDouble(scanner.nextLine());
         nivelClienteController.registrar(idNivel, nombre, montoMinimo);
+    }
+
+    private void buscarProducto(){
+        System.out.print("\nIngrese el ID del producto a buscar: ");
+        int idProductoBuscado = Integer.parseInt(scanner.nextLine());
+        productoController.mostrarProductoPorId(idProductoBuscado);
     }
 }
