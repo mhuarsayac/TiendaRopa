@@ -1,6 +1,7 @@
 package views;
 
 import controllers.NivelClienteController;
+import controllers.PersonaController;
 import controllers.VentaController;
 
 import java.util.Scanner;
@@ -8,6 +9,7 @@ import java.util.Scanner;
 public class MainView {
     private static final Scanner scanner = new Scanner(System.in);
     private final VentaController ventaController = new VentaController();
+    private final PersonaController personaController = new PersonaController();
     private final NivelClienteController nivelClienteController = new NivelClienteController();
 
     public void ejecutar() {
@@ -117,6 +119,7 @@ public class MainView {
                 case 1:
                     break;
                 case 2:
+                    registrarPersona();
                     break;
                 case 3:
                     break;
@@ -144,6 +147,38 @@ public class MainView {
             }
         }
         System.out.println("Sesión cerrada.");
+    }
+
+    private void registrarPersona() {
+        System.out.println("\n--- REGISTRAR PERSONA ---");
+        System.out.print("idPersona: ");
+        String idPersona = scanner.nextLine();
+        System.out.print("DNI: ");
+        String dni = scanner.nextLine();
+        System.out.print("Primer nombre: ");
+        String primerNombre = scanner.nextLine();
+        System.out.print("Segundo nombre: ");
+        String segundoNombre = scanner.nextLine();
+        System.out.print("Apellido paterno: ");
+        String apellidoPaterno = scanner.nextLine();
+        System.out.print("Apellido materno: ");
+        String apellidoMaterno = scanner.nextLine();
+        System.out.print("Dirección: ");
+        String direccion = scanner.nextLine();
+        System.out.print("Distrito: ");
+        String distrito = scanner.nextLine();
+        System.out.print("Código postal: ");
+        String codigoPostal = scanner.nextLine();
+        System.out.print("Teléfono: ");
+        String telefono = scanner.nextLine();
+        System.out.print("Correo: ");
+        String correo = scanner.nextLine();
+
+        personaController.registrar(
+                idPersona, dni, primerNombre, segundoNombre,
+                apellidoPaterno, apellidoMaterno, direccion, distrito,
+                codigoPostal, telefono, correo
+        );
     }
 
     private void registrarVenta() {
