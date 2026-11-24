@@ -1,5 +1,6 @@
 package views;
 
+import controllers.DetalleVentaController;
 import controllers.NivelClienteController;
 import controllers.PersonaController;
 import controllers.VentaController;
@@ -9,6 +10,7 @@ import java.util.Scanner;
 public class MainView {
     private static final Scanner scanner = new Scanner(System.in);
     private final VentaController ventaController = new VentaController();
+    private final DetalleVentaController detalleVentaController = new DetalleVentaController();
     private final PersonaController personaController = new PersonaController();
     private final NivelClienteController nivelClienteController = new NivelClienteController();
 
@@ -95,17 +97,21 @@ public class MainView {
 
     private void mostrarMenuAdministrador() {
         System.out.println("\n===== MENÚ ADMINISTRADOR =====");
-        System.out.println("1. Registrar producto");
-        System.out.println("2. Listar productos");
-        System.out.println("3. Buscar producto");
-        System.out.println("4. Modificar producto");
-        System.out.println("5. Eliminar producto");
-        System.out.println("6. Registrar venta");
-        System.out.println("7. Listar ventas");
-        System.out.println("8. Listar ventas de un vendedor");
-        System.out.println("9. Listar niveles");
-        System.out.println("10. Registra nivel");
-        System.out.println("11. Cerrar sesión");
+        System.out.println("1. Listar personas");
+        System.out.println("2. Registrar persona");
+        System.out.println("3. Registrar producto");
+        System.out.println("4. Listar productos");
+        System.out.println("5. Buscar producto");
+        System.out.println("6. Modificar producto");
+        System.out.println("7. Eliminar producto");
+        System.out.println("8. Listar ventas");
+        System.out.println("9. Registrar venta");
+        System.out.println("10. Listar ventas de un vendedor");
+        System.out.println("11. Listar detalle de las ventas");
+        System.out.println("12. Registrar un detalle de una venta");
+        System.out.println("13. Listar niveles");
+        System.out.println("14. Registra nivel");
+        System.out.println("15. Cerrar sesión");
     }
 
     private void ejecutarMenuAdministrador() {
@@ -132,14 +138,26 @@ public class MainView {
                 case 7:
                     break;
                 case 8:
+                    ventaController.mostrarTodos();
                     break;
                 case 9:
-                    nivelClienteController.mostrarTodos();
+                    registrarVenta();
                     break;
                 case 10:
-                    registrarNivel();
                     break;
                 case 11:
+                    detalleVentaController.mostrarTodos();
+                    break;
+                case 12:
+                    registrarDetalleVenta();
+                    break;
+                case 13:
+                    nivelClienteController.mostrarTodos();
+                    break;
+                case 14:
+                    registrarNivel();
+                    break;
+                case 15:
                     sesionActiva = false;
                     break;
                 default:
@@ -195,6 +213,22 @@ public class MainView {
         System.out.print("Estado: ");
         String estado = scanner.nextLine();
         ventaController.registrar(idVenta, idEmpleado, idCliente, fechaHora, total, estado);
+    }
+
+    private void registrarDetalleVenta() {
+        System.out.print("\nidDetalle: ");
+        int idDetalle = Integer.parseInt(scanner.nextLine());
+        System.out.print("idVenta: ");
+        int idVenta = Integer.parseInt(scanner.nextLine());
+        System.out.print("idVariante: ");
+        int idVariante = Integer.parseInt(scanner.nextLine());
+        System.out.print("Cantidad: ");
+        int cantidad = Integer.parseInt(scanner.nextLine());
+        System.out.print("Precio Unitario: ");
+        double precioUnitario = Double.parseDouble(scanner.nextLine());
+        System.out.print("Subotal: ");
+        double subtotal = Double.parseDouble(scanner.nextLine());
+        detalleVentaController.registrar(idDetalle, idVenta, idVariante, cantidad, precioUnitario, subtotal);
     }
 
     private void registrarNivel() {
