@@ -49,10 +49,10 @@ public class VentaDAOImpl implements VentaDAO {
             ResultSet rs = ps.executeQuery();
             while (rs.next()) {
                 lista.add(new VentaModel(
-                        rs.getInt("idVenta"),
-                        rs.getString("idEmpleado"),
-                        rs.getString("idCliente"),
-                        rs.getString("fechaHora"),
+                        rs.getInt("id_venta"),
+                        rs.getString("id_empleado"),
+                        rs.getString("id_cliente"),
+                        rs.getString("fecha_hora"),
                         rs.getDouble("total"),
                         rs.getString("estado")
                 ));

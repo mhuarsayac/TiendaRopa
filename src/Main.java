@@ -4,15 +4,15 @@ import java.util.ArrayList;
 import java.util.Scanner;
 
 public class Main {
-    MainView mainView =  new MainView();
-
-    /*
     private static Scanner sc = new Scanner(System.in);
     private static GestorInventario inventario = new GestorInventario();
     private static SistemaVentas sistemaVentas = new SistemaVentas();
     private static ArrayList<Empleado> empleados = new ArrayList<Empleado>();
 
     public static void main(String[] args) {
+        MainView mainView = new MainView();
+        mainView.ejecutar();
+        /*
         cargarDatosIniciales();
         System.out.println("==================================");
         System.out.println("     NONCONFORMIST - TIENDA");
@@ -33,6 +33,8 @@ public class Main {
             }
         }
         sc.close();
+
+         */
     }
 
     private static void cargarDatosIniciales() {
@@ -346,7 +348,7 @@ public class Main {
                 } else {
                     System.out.println("No hay stock suficiente.");
                 }
-                
+
             }
 
             String textoAgregarMas;
@@ -394,5 +396,5 @@ public class Main {
             sistemaVentas.listarVentasVendedor(vendedor);
         }
     }
-    */
+
 }
