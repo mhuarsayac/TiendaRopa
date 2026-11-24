@@ -19,7 +19,7 @@ public class VentaDAOImpl implements VentaDAO {
             String sql = "INSERT INTO venta (id_venta, id_empleado, " +
                     "id_cliente, fecha_hora, total, estado) " +
                     "VALUES (?, ?, ?, ?, ?, ?)";
-            Connection cn = DatabaseConnector.conectarBaseDeDatos();
+            Connection cn = DatabaseConnector.getConnection();
             PreparedStatement ps = cn.prepareStatement(sql);
             ps.setInt(1, p.getIdVenta());
             ps.setString(2, p.getIdEmpleado());
@@ -44,7 +44,7 @@ public class VentaDAOImpl implements VentaDAO {
         List<VentaModel> lista = new ArrayList<>();
         try {
             String sql = "SELECT * FROM venta";
-            Connection cn = DatabaseConnector.conectarBaseDeDatos();
+            Connection cn = DatabaseConnector.getConnection();
             PreparedStatement ps = cn.prepareStatement(sql);
             ResultSet rs = ps.executeQuery();
             while (rs.next()) {
@@ -67,7 +67,7 @@ public class VentaDAOImpl implements VentaDAO {
     public VentaModel buscarPorCodigo(Integer codigo) {
         try {
             String sql = "SELECT * FROM venta WHERE id_venta = ?";
-            Connection cn = DatabaseConnector.conectarBaseDeDatos();
+            Connection cn = DatabaseConnector.getConnection();
             PreparedStatement ps = cn.prepareStatement(sql);
             ps.setInt(1, codigo);
             ResultSet rs = ps.executeQuery();
@@ -92,7 +92,7 @@ public class VentaDAOImpl implements VentaDAO {
     public boolean actualizar(VentaModel c) {
         try {
             String sql = "UPDATE venta SET total = ?, estado = ? WHERE id_venta = ?";
-            Connection cn = DatabaseConnector.conectarBaseDeDatos();
+            Connection cn = DatabaseConnector.getConnection();
             PreparedStatement ps = cn.prepareStatement(sql);
             ps.setDouble(1, c.getTotal());
             ps.setString(2, c.getEstado());
@@ -113,7 +113,7 @@ public class VentaDAOImpl implements VentaDAO {
     public boolean eliminar(Integer codigo) {
         try {
             String sql = "DELETE FROM vemta WHERE id_venta = ?";
-            Connection cn = DatabaseConnector.conectarBaseDeDatos();
+            Connection cn = DatabaseConnector.getConnection();
             PreparedStatement ps = cn.prepareStatement(sql);
             ps.setInt(1, codigo);
             int filasAfectadas = ps.executeUpdate();
