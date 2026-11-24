@@ -1,17 +1,17 @@
 package models;
 
 public class PersonaModel {
-    String idPersona;
-    String dni;
-    String primerNombre;
-    String segundoNombre;
-    String apellidoPaterno;
-    String apellidoMaterno;
-    String direccion;
-    String distrito;
-    String codigoPostal;
-    String telefono;
-    String correo;
+    private String idPersona;
+    private String dni;
+    private String primerNombre;
+    private String segundoNombre;
+    private String apellidoPaterno;
+    private String apellidoMaterno;
+    private String direccion;
+    private String distrito;
+    private String codigoPostal;
+    private String telefono;
+    private String correo;
 
     public PersonaModel(String idPersona, String dni, String primerNombre, String segundoNombre, String apellidoPaterno, String apellidoMaterno, String direccion, String distrito, String codigoPostal, String telefono, String correo) {
         this.idPersona = idPersona;
