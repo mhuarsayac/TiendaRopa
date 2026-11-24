@@ -4,19 +4,18 @@ import java.util.Date;
 
 public class VentaModel {
     private int idVenta;
-    private int idEmpleado;
-    private int idCliente;
+    private String idEmpleado;
+    private String idCliente;
     private String fechaHora;
-    private String metodoPago;
     private double total;
     private String estado;
 
-    public VentaModel(int idVenta, int idEmpleado, int idCliente, String fechaHora, String metodoPago, double total, String estado) {
+    public VentaModel(int idVenta, String idEmpleado, String idCliente, String fechaHora,
+                      double total, String estado) {
         this.idVenta = idVenta;
         this.idEmpleado = idEmpleado;
         this.idCliente = idCliente;
         this.fechaHora = fechaHora;
-        this.metodoPago = metodoPago;
         this.total = total;
         this.estado = estado;
     }
@@ -29,19 +28,19 @@ public class VentaModel {
         this.idVenta = idVenta;
     }
 
-    public int getIdEmpleado() {
+    public String getIdEmpleado() {
         return idEmpleado;
     }
 
-    public void setIdEmpleado(int idEmpleado) {
+    public void setIdEmpleado(String idEmpleado) {
         this.idEmpleado = idEmpleado;
     }
 
-    public int getIdCliente() {
+    public String getIdCliente() {
         return idCliente;
     }
 
-    public void setIdCliente(int idCliente) {
+    public void setIdCliente(String idCliente) {
         this.idCliente = idCliente;
     }
 
@@ -51,14 +50,6 @@ public class VentaModel {
 
     public void setFechaHora(String fechaHora) {
         this.fechaHora = fechaHora;
-    }
-
-    public String getMetodoPago() {
-        return metodoPago;
-    }
-
-    public void setMetodoPago(String metodoPago) {
-        this.metodoPago = metodoPago;
     }
 
     public double getTotal() {
@@ -78,6 +69,6 @@ public class VentaModel {
     }
 
     public void mostrarInformacion() {
-        System.out.println("CODIGO_VENTA: " + idVenta + " - CODIGO_EMPLEADO: " + idEmpleado + " - CODIGO_CLIENTE: " + idCliente + " - DISPONIBLE: " + disponible + " - ID_TIPO: " + idTipo);
+        System.out.println("CODIGO_VENTA: " + idVenta + " - CODIGO_EMPLEADO: " + idEmpleado + " - CODIGO_CLIENTE: " + idCliente + " - FECHA_HORA: " + fechaHora + " - TOTAL: " + total + " - ESTADO: " + estado);
     }
 }

@@ -1,7 +1,12 @@
+import views.MainView;
+
 import java.util.ArrayList;
 import java.util.Scanner;
 
 public class Main {
+    MainView mainView =  new MainView();
+
+    /*
     private static Scanner sc = new Scanner(System.in);
     private static GestorInventario inventario = new GestorInventario();
     private static SistemaVentas sistemaVentas = new SistemaVentas();
@@ -389,5 +394,5 @@ public class Main {
             sistemaVentas.listarVentasVendedor(vendedor);
         }
     }
-
+    */
 }
