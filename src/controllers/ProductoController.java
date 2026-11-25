@@ -2,6 +2,7 @@ package controllers;
 
 import dao.ProductoDAO;
 import dao.impl.ProductoDAOImpl;
+import models.CrearProducto;
 import models.ProductoModel;
 
 public class ProductoController {
@@ -9,7 +10,7 @@ public class ProductoController {
 
     public void registrar(int idProducto, String codigo, String nombre, String descripcion,
                           double precio, int idGenero, int idCategoria, String activo) {
-        ProductoModel p = new ProductoModel(idProducto, codigo, nombre, descripcion, precio, idGenero, idCategoria, activo);
+        ProductoModel p = CrearProducto.crear(idProducto, codigo, nombre, descripcion, precio, idGenero, idCategoria, activo);
         if (productoDAO.insertar(p)) {
             System.out.println("Producto registrado.");
         } else {

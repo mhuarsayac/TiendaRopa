@@ -1,6 +1,6 @@
 package models;
 
-public class ProductoModel {
+public abstract class ProductoModel {
     protected int idProducto;
     protected String codigo;
     protected String nombre;
@@ -89,5 +89,12 @@ public class ProductoModel {
     public void mostrarInformacion() {
         System.out.println("ID_PRODUCTO: " + idProducto + " - CODIGO: " + codigo + " - NOMBRE: " + nombre + " - DESCRIPCION: " + descripcion +
                 " - PRECIO: " + precio + " - ID_GENERO: " + idGenero + " - ID_CATEGORIA: " + idCategoria + " - ACTIVO: " + activo);
+    }
+
+    public abstract double calcularPrecioVenta(int cantidad);
+
+    //multiplica por 100 al valor, luego redondea a 2 decimales y finalmente divide entre 100
+    protected double redondear(double valor) {
+        return Math.round(valor * 100.0) / 100.0;
     }
 }

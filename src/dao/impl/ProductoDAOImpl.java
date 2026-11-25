@@ -1,6 +1,7 @@
 package dao.impl;
 
 import dao.ProductoDAO;
+import models.CrearProducto;
 import models.NivelClienteModel;
 import models.ProductoModel;
 import services.DatabaseConnector;
@@ -49,7 +50,7 @@ public class ProductoDAOImpl implements ProductoDAO {
             PreparedStatement ps = cn.prepareStatement(sql);
             ResultSet rs = ps.executeQuery();
             while (rs.next()) {
-                lista.add(new ProductoModel(
+                ProductoModel producto = CrearProducto.crear(
                         rs.getInt("id_producto"),
                         rs.getString("codigo"),
                         rs.getString("nombre"),
@@ -58,7 +59,11 @@ public class ProductoDAOImpl implements ProductoDAO {
                         rs.getInt("id_genero"),
                         rs.getInt("id_categoria"),
                         rs.getString("activo")
-                ));
+                );
+
+                if (producto != null) {
+                    lista.add(producto);
+                }
             }
         } catch (SQLException e) {
             System.out.println("Error al listar: " + e.getMessage());
@@ -75,7 +80,7 @@ public class ProductoDAOImpl implements ProductoDAO {
             ps.setInt(1, codigo);
             ResultSet rs = ps.executeQuery();
             if (rs.next()) {
-                return new ProductoModel(
+                ProductoModel producto = CrearProducto.crear(
                         rs.getInt("id_producto"),
                         rs.getString("codigo"),
                         rs.getString("nombre"),
@@ -85,6 +90,10 @@ public class ProductoDAOImpl implements ProductoDAO {
                         rs.getInt("id_categoria"),
                         rs.getString("activo")
                 );
+
+                if (producto != null) {
+                    return producto;
+                }
             }
 
         } catch (SQLException e) {
