@@ -215,7 +215,7 @@ public class MainView {
         double precio = Double.parseDouble(scanner.nextLine());
         System.out.print("ID Genero: ");
         int idGenero = Integer.parseInt(scanner.nextLine());
-        System.out.print("\nID Categoria: ");
+        System.out.print("ID Categoria: ");
         int idCategoria = Integer.parseInt(scanner.nextLine());
         System.out.print("Activo: ");
         String activo = scanner.nextLine();
