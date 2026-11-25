@@ -11,6 +11,7 @@ public class MainView {
     private final PersonaController personaController = new PersonaController();
     private final NivelClienteController nivelClienteController = new NivelClienteController();
     private final ProductoController productoController = new ProductoController();
+    private final CategoriaController categoriaController = new CategoriaController();
 
     public void ejecutar() {
         System.out.println("==================================");
@@ -104,14 +105,19 @@ public class MainView {
         System.out.println("5. Buscar producto");
         System.out.println("6. Modificar producto");
         System.out.println("7. Eliminar producto");
-        System.out.println("8. Listar ventas");
-        System.out.println("9. Registrar venta");
-        System.out.println("10. Listar ventas de un vendedor");
-        System.out.println("11. Listar detalle de las ventas");
-        System.out.println("12. Registrar un detalle de una venta");
-        System.out.println("13. Listar niveles");
-        System.out.println("14. Registra nivel");
-        System.out.println("15. Cerrar sesión");
+        System.out.println("8. Listar categorias");
+        System.out.println("9. Registrar categoria");
+        System.out.println("10. Buscar categoria");
+        System.out.println("11. Modificar categoria");
+        System.out.println("12. Eliminar categoria");
+        System.out.println("13. Listar ventas");
+        System.out.println("14. Registrar venta");
+        System.out.println("15. Listar ventas de un vendedor");
+        System.out.println("16. Listar detalle de las ventas");
+        System.out.println("17. Registrar un detalle de una venta");
+        System.out.println("18. Listar niveles");
+        System.out.println("19. Registra nivel");
+        System.out.println("20. Cerrar sesión");
     }
 
     private void ejecutarMenuAdministrador() {
@@ -137,30 +143,47 @@ public class MainView {
                     buscarProducto();
                     break;
                 case 6:
+                    modificarProducto();
                     break;
                 case 7:
+                    eliminarProducto();
                     break;
                 case 8:
-                    ventaController.mostrarTodos();
+                    categoriaController.mostrarTodos();
                     break;
                 case 9:
-                    registrarVenta();
+                    registrarCategoria();
                     break;
                 case 10:
+                    buscarCategoria();
                     break;
                 case 11:
-                    detalleVentaController.mostrarTodos();
+                    modificarCategoria();
                     break;
                 case 12:
-                    registrarDetalleVenta();
+                    eliminarCategoria();
                     break;
                 case 13:
-                    nivelClienteController.mostrarTodos();
+                    ventaController.mostrarTodos();
                     break;
                 case 14:
-                    registrarNivel();
+                    registrarVenta();
                     break;
                 case 15:
+                    break;
+                case 16:
+                    detalleVentaController.mostrarTodos();
+                    break;
+                case 17:
+                    registrarDetalleVenta();
+                    break;
+                case 18:
+                    nivelClienteController.mostrarTodos();
+                    break;
+                case 19:
+                    registrarNivel();
+                    break;
+                case 20:
                     sesionActiva = false;
                     break;
                 default:
@@ -264,9 +287,55 @@ public class MainView {
         nivelClienteController.registrar(idNivel, nombre, montoMinimo);
     }
 
-    private void buscarProducto(){
+    private void registrarCategoria() {
+        System.out.print("\nID Categoria: ");
+        int idCategoria = Integer.parseInt(scanner.nextLine());
+        System.out.print("Nombre: ");
+        String nombre = scanner.nextLine();
+        categoriaController.registrar(idCategoria, nombre);
+    }
+
+    private void buscarProducto() {
         System.out.print("\nIngrese el ID del producto a buscar: ");
         int idProductoBuscado = Integer.parseInt(scanner.nextLine());
         productoController.mostrarProductoPorId(idProductoBuscado);
+    }
+
+    private void buscarCategoria() {
+        System.out.print("\nIngrese el ID de la categoria a buscar: ");
+        int idCategoriaBuscado = Integer.parseInt(scanner.nextLine());
+        categoriaController.mostrarCategoriaPorCodigo(idCategoriaBuscado);
+    }
+
+    private void modificarProducto() {
+        System.out.print("\nIngrese el ID del producto a modificar: ");
+        int idProductoModificable = Integer.parseInt(scanner.nextLine());
+        System.out.print("Nombre: ");
+        String nombre = scanner.nextLine();
+        System.out.print("Descripcion: ");
+        String descripcion = scanner.nextLine();
+        System.out.print("Precio: ");
+        double precio = Double.parseDouble(scanner.nextLine());
+        productoController.actualizarProducto(idProductoModificable, nombre, descripcion, precio);
+    }
+
+    private void modificarCategoria() {
+        System.out.print("\nIngrese el ID de la categoria a modificar: ");
+        int idProductoModificable = Integer.parseInt(scanner.nextLine());
+        System.out.print("Nombre: ");
+        String nombre = scanner.nextLine();
+        categoriaController.actualizarCategoria(idProductoModificable, nombre);
+    }
+
+    private void eliminarProducto() {
+        System.out.print("\nIngrese el ID del producto a eliminar: ");
+        int idProductoEliminar = Integer.parseInt(scanner.nextLine());
+        productoController.eliminarProducto(idProductoEliminar);
+    }
+
+    private void eliminarCategoria() {
+        System.out.print("\nIngrese el ID de la categoria a eliminar: ");
+        int idCategoriaEliminar = Integer.parseInt(scanner.nextLine());
+        categoriaController.eliminarCategoria(idCategoriaEliminar);
     }
 }
