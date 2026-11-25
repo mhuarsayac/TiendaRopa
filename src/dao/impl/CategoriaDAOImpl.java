@@ -2,7 +2,6 @@ package dao.impl;
 
 import dao.CategoriaDAO;
 import models.CategoriaModel;
-import models.VentaModel;
 import services.DatabaseConnector;
 
 import java.sql.Connection;
