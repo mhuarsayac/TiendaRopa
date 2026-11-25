@@ -2,13 +2,15 @@ package views;
 
 import controllers.*;
 
+import java.time.LocalDate;
 import java.util.Scanner;
 
 public class MainView {
     private static final Scanner scanner = new Scanner(System.in);
     private final VentaController ventaController = new VentaController();
     private final DetalleVentaController detalleVentaController = new DetalleVentaController();
-    private final PersonaController personaController = new PersonaController();
+    private final EmpleadoController empleadoController = new EmpleadoController();
+    private final ClienteController clienteController = new ClienteController();
     private final NivelClienteController nivelClienteController = new NivelClienteController();
     private final ProductoController productoController = new ProductoController();
 
@@ -98,7 +100,7 @@ public class MainView {
     private void mostrarMenuAdministrador() {
         System.out.println("\n===== MENÚ ADMINISTRADOR =====");
         System.out.println("1. Listar personas");
-        System.out.println("2. Registrar persona");
+        System.out.println("2. Registrar empleado");
         System.out.println("3. Listar productos");
         System.out.println("4. Registrar producto");
         System.out.println("5. Buscar producto");
@@ -111,7 +113,14 @@ public class MainView {
         System.out.println("12. Registrar un detalle de una venta");
         System.out.println("13. Listar niveles");
         System.out.println("14. Registra nivel");
-        System.out.println("15. Cerrar sesión");
+        System.out.println("15. Buscar empleado");
+        System.out.println("16. Modificar empleado");
+        System.out.println("17. Eliminar empleado");
+        System.out.println("18. Registrar cliente");
+        System.out.println("19. Buscar cliente");
+        System.out.println("20. Modificar cliente");
+        System.out.println("21. Eliminar cliente");
+        System.out.println("22. Cerrar sesión");
     }
 
     private void ejecutarMenuAdministrador() {
@@ -123,9 +132,13 @@ public class MainView {
 
             switch (opcion) {
                 case 1:
+                    System.out.println("\n--- EMPLEADOS ---");
+                    empleadoController.mostrarTodos();
+                    System.out.println("\n--- CLIENTES ---");
+                    clienteController.mostrarTodos();
                     break;
                 case 2:
-                    registrarPersona();
+                    registrarEmpleado();
                     break;
                 case 3:
                     productoController.mostrarTodos();
@@ -161,6 +174,27 @@ public class MainView {
                     registrarNivel();
                     break;
                 case 15:
+                    buscarEmpleado();
+                    break;
+                case 16:
+                    modificarEmpleado();
+                    break;
+                case 17:
+                    eliminarEmpleado();
+                    break;
+                case 18:
+                    registrarCliente();
+                    break;
+                case 19:
+                    buscarCliente();
+                    break;
+                case 20:
+                    modificarCliente();
+                    break;
+                case 21:
+                    eliminarCliente();
+                    break;
+                case 22:
                     sesionActiva = false;
                     break;
                 default:
@@ -170,8 +204,8 @@ public class MainView {
         System.out.println("Sesión cerrada.");
     }
 
-    private void registrarPersona() {
-        System.out.println("\n--- REGISTRAR PERSONA ---");
+    private void registrarEmpleado() {
+        System.out.println("--- REGISTRAR EMPLEADO ---");
         System.out.print("idPersona: ");
         String idPersona = scanner.nextLine();
         System.out.print("DNI: ");
@@ -195,11 +229,193 @@ public class MainView {
         System.out.print("Correo: ");
         String correo = scanner.nextLine();
 
-        personaController.registrar(
+        System.out.print("idEmpleado: ");
+        String idEmpleado = scanner.nextLine();
+        System.out.print("idUsuario: ");
+        int idUsuario = Integer.parseInt(scanner.nextLine());
+        System.out.print("Tipo (ADMINISTRADOR / VENDEDOR): ");
+        String tipo = scanner.nextLine();
+        System.out.print("Salario: ");
+        double salario = Double.parseDouble(scanner.nextLine());
+        System.out.print("Bono: ");
+        double bono = Double.parseDouble(scanner.nextLine());
+        System.out.print("Fecha de contratación (AAAA-MM-DD): ");
+        LocalDate fechaContratacion = LocalDate.parse(scanner.nextLine());
+        System.out.print("Fecha de despedida (AAAA-MM-DD, vacío si no aplica): ");
+        String textoDespedida = scanner.nextLine();
+        LocalDate fechaDespedida = textoDespedida.isBlank() ? null : LocalDate.parse(textoDespedida);
+        System.out.print("Estado (ACTIVO / SUSPENDIDO / DESPEDIDO): ");
+        String estado = scanner.nextLine();
+        System.out.print("Motivo (vacío si no aplica): ");
+        String textoMotivo = scanner.nextLine();
+        String motivo = textoMotivo.isBlank() ? null : textoMotivo;
+
+        empleadoController.registrar(
                 idPersona, dni, primerNombre, segundoNombre,
                 apellidoPaterno, apellidoMaterno, direccion, distrito,
-                codigoPostal, telefono, correo
+                codigoPostal, telefono, correo,
+                idEmpleado, idUsuario, tipo, salario, bono,
+                fechaContratacion, fechaDespedida, estado, motivo
         );
+    }
+
+    private void buscarEmpleado() {
+        System.out.print("\nIngrese el ID del empleado a buscar: ");
+        String idEmpleado = scanner.nextLine();
+        empleadoController.mostrarPorId(idEmpleado);
+    }
+
+    private void modificarEmpleado() {
+        System.out.println("--- MODIFICAR EMPLEADO ---");
+        System.out.print("idPersona: ");
+        String idPersona = scanner.nextLine();
+        System.out.print("DNI: ");
+        String dni = scanner.nextLine();
+        System.out.print("Primer nombre: ");
+        String primerNombre = scanner.nextLine();
+        System.out.print("Segundo nombre: ");
+        String segundoNombre = scanner.nextLine();
+        System.out.print("Apellido paterno: ");
+        String apellidoPaterno = scanner.nextLine();
+        System.out.print("Apellido materno: ");
+        String apellidoMaterno = scanner.nextLine();
+        System.out.print("Dirección: ");
+        String direccion = scanner.nextLine();
+        System.out.print("Distrito: ");
+        String distrito = scanner.nextLine();
+        System.out.print("Código postal: ");
+        String codigoPostal = scanner.nextLine();
+        System.out.print("Teléfono: ");
+        String telefono = scanner.nextLine();
+        System.out.print("Correo: ");
+        String correo = scanner.nextLine();
+
+        System.out.print("idEmpleado: ");
+        String idEmpleado = scanner.nextLine();
+        System.out.print("idUsuario: ");
+        int idUsuario = Integer.parseInt(scanner.nextLine());
+        System.out.print("Tipo (ADMINISTRADOR / VENDEDOR): ");
+        String tipo = scanner.nextLine();
+        System.out.print("Salario: ");
+        double salario = Double.parseDouble(scanner.nextLine());
+        System.out.print("Bono: ");
+        double bono = Double.parseDouble(scanner.nextLine());
+        System.out.print("Fecha de contratación (AAAA-MM-DD): ");
+        LocalDate fechaContratacion = LocalDate.parse(scanner.nextLine());
+        System.out.print("Fecha de despedida (AAAA-MM-DD, vacío si no aplica): ");
+        String textoDespedida = scanner.nextLine();
+        LocalDate fechaDespedida = textoDespedida.isBlank() ? null : LocalDate.parse(textoDespedida);
+        System.out.print("Estado (ACTIVO / SUSPENDIDO / DESPEDIDO): ");
+        String estado = scanner.nextLine();
+        System.out.print("Motivo (vacío si no aplica): ");
+        String textoMotivo = scanner.nextLine();
+        String motivo = textoMotivo.isBlank() ? null : textoMotivo;
+
+        empleadoController.actualizar(
+                idPersona, dni, primerNombre, segundoNombre,
+                apellidoPaterno, apellidoMaterno, direccion, distrito,
+                codigoPostal, telefono, correo,
+                idEmpleado, idUsuario, tipo, salario, bono,
+                fechaContratacion, fechaDespedida, estado, motivo
+        );
+    }
+
+    private void eliminarEmpleado() {
+        System.out.print("\nIngrese el ID del empleado a eliminar: ");
+        String idEmpleado = scanner.nextLine();
+        empleadoController.eliminar(idEmpleado);
+    }
+
+    private void registrarCliente() {
+        System.out.println("--- REGISTRAR CLIENTE ---");
+        System.out.print("idPersona: ");
+        String idPersona = scanner.nextLine();
+        System.out.print("DNI: ");
+        String dni = scanner.nextLine();
+        System.out.print("Primer nombre: ");
+        String primerNombre = scanner.nextLine();
+        System.out.print("Segundo nombre: ");
+        String segundoNombre = scanner.nextLine();
+        System.out.print("Apellido paterno: ");
+        String apellidoPaterno = scanner.nextLine();
+        System.out.print("Apellido materno: ");
+        String apellidoMaterno = scanner.nextLine();
+        System.out.print("Dirección: ");
+        String direccion = scanner.nextLine();
+        System.out.print("Distrito: ");
+        String distrito = scanner.nextLine();
+        System.out.print("Código postal: ");
+        String codigoPostal = scanner.nextLine();
+        System.out.print("Teléfono: ");
+        String telefono = scanner.nextLine();
+        System.out.print("Correo: ");
+        String correo = scanner.nextLine();
+
+        System.out.print("idCliente: ");
+        String idCliente = scanner.nextLine();
+        System.out.print("idNivelCliente: ");
+        String idNivelCliente = scanner.nextLine();
+        System.out.print("Fecha de registro (AAAA-MM-DD): ");
+        LocalDate fechaRegistro = LocalDate.parse(scanner.nextLine());
+
+        clienteController.registrar(
+                idPersona, dni, primerNombre, segundoNombre,
+                apellidoPaterno, apellidoMaterno, direccion, distrito,
+                codigoPostal, telefono, correo,
+                idCliente, idNivelCliente, fechaRegistro
+        );
+    }
+
+    private void buscarCliente() {
+        System.out.print("\nIngrese el ID del cliente a buscar: ");
+        String idCliente = scanner.nextLine();
+        clienteController.mostrarPorId(idCliente);
+    }
+
+    private void modificarCliente() {
+        System.out.println("--- MODIFICAR CLIENTE ---");
+        System.out.print("idPersona: ");
+        String idPersona = scanner.nextLine();
+        System.out.print("DNI: ");
+        String dni = scanner.nextLine();
+        System.out.print("Primer nombre: ");
+        String primerNombre = scanner.nextLine();
+        System.out.print("Segundo nombre: ");
+        String segundoNombre = scanner.nextLine();
+        System.out.print("Apellido paterno: ");
+        String apellidoPaterno = scanner.nextLine();
+        System.out.print("Apellido materno: ");
+        String apellidoMaterno = scanner.nextLine();
+        System.out.print("Dirección: ");
+        String direccion = scanner.nextLine();
+        System.out.print("Distrito: ");
+        String distrito = scanner.nextLine();
+        System.out.print("Código postal: ");
+        String codigoPostal = scanner.nextLine();
+        System.out.print("Teléfono: ");
+        String telefono = scanner.nextLine();
+        System.out.print("Correo: ");
+        String correo = scanner.nextLine();
+
+        System.out.print("idCliente: ");
+        String idCliente = scanner.nextLine();
+        System.out.print("idNivelCliente: ");
+        String idNivelCliente = scanner.nextLine();
+        System.out.print("Fecha de registro (AAAA-MM-DD): ");
+        LocalDate fechaRegistro = LocalDate.parse(scanner.nextLine());
+
+        clienteController.actualizar(
+                idPersona, dni, primerNombre, segundoNombre,
+                apellidoPaterno, apellidoMaterno, direccion, distrito,
+                codigoPostal, telefono, correo,
+                idCliente, idNivelCliente, fechaRegistro
+        );
+    }
+
+    private void eliminarCliente() {
+        System.out.print("\nIngrese el ID del cliente a eliminar: ");
+        String idCliente = scanner.nextLine();
+        clienteController.eliminar(idCliente);
     }
 
     private void registrarProducto() {

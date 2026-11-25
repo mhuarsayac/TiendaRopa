@@ -1,6 +1,6 @@
 package models;
 
-public class PersonaModel {
+public abstract class PersonaModel {
     private String idPersona;
     private String dni;
     private String primerNombre;
@@ -26,6 +26,9 @@ public class PersonaModel {
         this.telefono = telefono;
         this.correo = correo;
     }
+
+    // Método abstracto: cada clase hija debe definirlo
+    public abstract String getRol();
 
     public String getIdPersona() {
         return idPersona;
@@ -95,8 +98,8 @@ public class PersonaModel {
         return codigoPostal;
     }
 
-    public void setCoidgoPostal(String coidgoPostal) {
-        this.codigoPostal = coidgoPostal;
+    public void setCodigoPostal(String codigoPostal) {
+        this.codigoPostal = codigoPostal;
     }
 
     public String getTelefono() {
