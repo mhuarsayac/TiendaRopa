@@ -2,6 +2,8 @@ package dao;
 
 import models.VentaModel;
 
-public interface VentaDAO extends GenericDAO<VentaModel, Integer> {
+import java.util.List;
 
+public interface VentaDAO extends GenericDAO<VentaModel, Integer> {
+    List<VentaModel> listarVentasPorIdEmpleado(String idEmpleado);
 }

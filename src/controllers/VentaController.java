@@ -56,4 +56,10 @@ public class VentaController {
             System.out.println("No se elimino la venta");
         }
     }
+
+    public void mostrarTodosEmpleado(String idEmpleado){
+        for (VentaModel c : ventaDAO.listarVentasPorIdEmpleado(idEmpleado)) {
+            c.mostrarInformacion();
+        }
+    }
 }

@@ -56,7 +56,7 @@ public class MainView {
                 if (empleado.getTipo().equalsIgnoreCase("ADMINISTRADOR")) {
                     ejecutarMenuAdministrador();
                 } else {
-                    ejecutarMenuVendedor();
+                    ejecutarMenuVendedor(empleado.getIdEmpleado());
                 }
 
                 salir = true;
@@ -75,7 +75,7 @@ public class MainView {
         System.out.println("6. Cerrar sesión");
     }
 
-    private void ejecutarMenuVendedor() {
+    private void ejecutarMenuVendedor(String idEmpleado) {
         boolean sesionActiva = true;
         while (sesionActiva) {
             mostrarMenuVendedor();
@@ -93,7 +93,7 @@ public class MainView {
                     registrarVenta();
                     break;
                 case 4:
-                    ventaController.mostrarTodos();
+                    ventaController.mostrarTodosEmpleado(idEmpleado);
                     break;
                 case 5:
                     break;
@@ -170,6 +170,10 @@ public class MainView {
                     registrarVenta();
                     break;
                 case 10:
+                    empleadoController.mostrarTodos();
+                    System.out.print("\nID Empleado a buscar sus ventas: ");
+                    String idEmpleado = leerTextoNoVacio();
+                    ventaController.mostrarTodosEmpleado(idEmpleado);
                     break;
                 case 11:
                     detalleVentaController.mostrarTodos();

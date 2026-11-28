@@ -128,4 +128,33 @@ public class VentaDAOImpl implements VentaDAO {
         }
     }
 
+    @Override
+    public List<VentaModel> listarVentasPorIdEmpleado(String idEmpleado) {
+        List<VentaModel> lista = new ArrayList<>();
+        String sql = "SELECT * FROM venta WHERE id_empleado = ?";
+        try (Connection cn = DatabaseConnector.getConnection()) {
+            if (cn == null) {
+                return null;
+            }
+
+            try (PreparedStatement ps = cn.prepareStatement(sql)) {
+                ps.setString(1, idEmpleado);
+                try (ResultSet rs = ps.executeQuery()) {
+                    while (rs.next()) {
+                        lista.add(new VentaModel(
+                                rs.getInt("id_venta"),
+                                rs.getString("id_empleado"),
+                                rs.getString("id_cliente"),
+                                rs.getString("fecha_hora"),
+                                rs.getDouble("total"),
+                                rs.getString("estado")
+                        ));
+                    }
+                }
+            }
+        } catch (SQLException e) {
+            System.out.print("Error al iniciar sesion: " + e.getMessage());
+        }
+        return lista;
+    }
 }
