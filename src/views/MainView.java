@@ -1,6 +1,7 @@
 package views;
 
 import controllers.*;
+import services.DatabaseConnector;
 
 import java.time.LocalDate;
 import java.util.Scanner;
@@ -18,6 +19,15 @@ public class MainView {
         System.out.println("==================================");
         System.out.println("     NONCONFORMIST - TIENDA");
         System.out.println("==================================");
+
+        if (!DatabaseConnector.probarConexion()){
+            System.out.println("No hay conexion con la base de datos. Revise MySQL y DatabaseConnector");
+            scanner.close();
+            return;
+        }
+
+        System.out.println("Conexion a la base de datos: OK");
+
         System.out.println("Usuarios de prueba:");
         System.out.println("Administrador: admin / admin123");
         System.out.println("Vendedor: venta / venta123");
@@ -46,7 +56,7 @@ public class MainView {
         System.out.println("\n--- INICIO DE SESIÓN (escriba SALIR como usuario para terminar) ---");
         System.out.print("Usuario: ");
         String usuario = scanner.nextLine();
-        if (usuario.equals("SALIR")) {
+        if (usuario.equalsIgnoreCase("SALIR")) {
             return false;
         }
         System.out.print("Contraseña: ");

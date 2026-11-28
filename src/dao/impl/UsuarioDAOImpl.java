@@ -5,10 +5,7 @@ import models.CategoriaModel;
 import models.UsuarioModel;
 import services.DatabaseConnector;
 
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
+import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -120,5 +117,33 @@ public class UsuarioDAOImpl implements UsuarioDAO {
             System.out.println("Error al eliminar: " + e.getMessage());
             return false;
         }
+    }
+
+    @Override
+    public UsuarioModel autenticar(String usuario, String contrasena) {
+        String sql = "SELECT * FROM usuario WHERE usuario = ? and contrasena = ?";
+        //abrimos un recurso como Connection, PreparedStatement y Resulset para usarlo y se cierran automaticamente al finalizar el try
+        try (Connection cn = DatabaseConnector.getConnection()) {
+            if (cn == null) {
+                return null;
+            }
+            try (PreparedStatement ps = cn.prepareStatement(sql)) {
+                ps.setString(1, usuario);
+                ps.setString(2, contrasena);
+                try (ResultSet rs = ps.executeQuery()) {
+                    if (rs.next()) {
+                        return new UsuarioModel(
+                                rs.getInt("id_usuario"),
+                                rs.getString("usuario"),
+                                rs.getString("contrasena"),
+                                rs.getString("activo")
+                        );
+                    }
+                }
+            }
+        } catch (SQLException e) {
+            System.out.println("Error al iniciar sesion: " + e.getMessage());
+        }
+        return null;
     }
 }
