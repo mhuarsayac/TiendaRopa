@@ -4,12 +4,7 @@ import dao.EmpleadoDAO;
 import models.EmpleadoModel;
 import services.DatabaseConnector;
 
-import java.sql.Connection;
-import java.sql.Date;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.sql.Types;
+import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -258,5 +253,28 @@ public class EmpleadoDAOImpl implements EmpleadoDAO {
                 rs.getString("estado"),
                 rs.getString("motivo")
         );
+    }
+
+    @Override
+    public EmpleadoModel buscarPorIdUsuario(int idUsuario) {
+        String sql = SQL_SELECT_BASE + " WHERE e.id_usuario = ?";
+
+        try (Connection cn = DatabaseConnector.getConnection()) {
+            if (cn == null) {
+                return null;
+            }
+
+            try (PreparedStatement ps = cn.prepareStatement(sql)) {
+                ps.setInt(1, idUsuario);
+                try (ResultSet rs = ps.executeQuery()) {
+                    if (rs.next()) {
+                        return armarEmpleado(rs);
+                    }
+                }
+            }
+        } catch (SQLException e) {
+            System.out.println("Error al buscar al empleado por usuario: " + e.getMessage());
+        }
+        return null;
     }
 }
