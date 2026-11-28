@@ -1,6 +1,7 @@
 package views;
 
 import controllers.*;
+import models.EmpleadoModel;
 import services.DatabaseConnector;
 
 import java.time.LocalDate;
@@ -14,13 +15,14 @@ public class MainView {
     private final ClienteController clienteController = new ClienteController();
     private final NivelClienteController nivelClienteController = new NivelClienteController();
     private final ProductoController productoController = new ProductoController();
+    private final LoginController loginController = new LoginController();
 
     public void ejecutar() {
         System.out.println("==================================");
         System.out.println("     NONCONFORMIST - TIENDA");
         System.out.println("==================================");
 
-        if (!DatabaseConnector.probarConexion()){
+        if (!DatabaseConnector.probarConexion()) {
             System.out.println("No hay conexion con la base de datos. Revise MySQL y DatabaseConnector");
             scanner.close();
             return;
@@ -28,41 +30,37 @@ public class MainView {
 
         System.out.println("Conexion a la base de datos: OK");
 
-        System.out.println("Usuarios de prueba:");
-        System.out.println("Administrador: admin / admin123");
-        System.out.println("Vendedor: venta / venta123");
+        EmpleadoModel empleado = null;
+        boolean salir = false;
 
-        boolean continuar = true;
-        while (continuar) {
-            boolean inicioExitoso = iniciarSesion();
-            if (inicioExitoso == false) {
-                System.out.println("Saliendo del sistema...");
-                continuar = false;
-            } else {
-                System.out.println("1- VENDEDOR / 2 ADMINISTRADOR");
-                int opcionPrueba = Integer.parseInt(scanner.nextLine());
-                if (opcionPrueba == 1) {
-                    ejecutarMenuVendedor();
-                } else {
+        while (!salir) {
+            System.out.println("\n--- INICIO DE SESIÓN (escriba SALIR como usuario para terminar) ---");
+            System.out.print("Usuario: ");
+            String usuario = scanner.nextLine();
+
+            if (usuario.equalsIgnoreCase("SALIR")) {
+                salir = true;
+                continue;
+            }
+
+            System.out.print("Contraseña: ");
+            String contrasena = scanner.nextLine();
+
+            empleado = loginController.iniciarSesion(usuario, contrasena);
+
+            if (empleado != null) {
+                System.out.println("\nBienvenido, " + empleado.getPrimerNombre() + " (" + empleado.getTipo() + ")");
+
+                if (empleado.getTipo().equalsIgnoreCase("ADMINISTRADOR")) {
                     ejecutarMenuAdministrador();
+                } else {
+                    ejecutarMenuVendedor();
                 }
 
+                salir = true;
             }
         }
         scanner.close();
-    }
-
-    private static boolean iniciarSesion() {
-        System.out.println("\n--- INICIO DE SESIÓN (escriba SALIR como usuario para terminar) ---");
-        System.out.print("Usuario: ");
-        String usuario = scanner.nextLine();
-        if (usuario.equalsIgnoreCase("SALIR")) {
-            return false;
-        }
-        System.out.print("Contraseña: ");
-        String contrasena = scanner.nextLine();
-
-        return true;
     }
 
     private void mostrarMenuVendedor() {
@@ -490,7 +488,7 @@ public class MainView {
         nivelClienteController.registrar(idNivel, nombre, montoMinimo);
     }
 
-    private void buscarProducto(){
+    private void buscarProducto() {
         System.out.print("\nIngrese el ID del producto a buscar: ");
         int idProductoBuscado = Integer.parseInt(scanner.nextLine());
         productoController.mostrarProductoPorId(idProductoBuscado);

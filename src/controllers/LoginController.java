@@ -35,6 +35,6 @@ public class LoginController {
             System.out.println("El empleado esta " + empleado.getEstado() + ". No puede ingresar");
             return null;
         }
-        return null;
+        return empleado;
     }
 }
